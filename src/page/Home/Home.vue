@@ -115,17 +115,8 @@
           </el-submenu>
         </el-menu>
       </el-aside>
+      <!-- 主内容区域 -->
       <el-main>
-        <!-- <el-tabs v-model="editableTabsValue2" type="card" closable @tab-remove="removeTab" style="height:100%">
-          <el-tab-pane
-            v-for="(item) in editableTabs2"
-            :key="item.name"
-            :label="item.title"
-            :name="item.name"
-          >
-            {{item.content}}
-          </el-tab-pane>
-        </el-tabs> -->
         <el-col :span="24" class="content-wrapper">
           <transition name="fade" mode="out-in">
             <router-view></router-view>
