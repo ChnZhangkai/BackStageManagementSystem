@@ -4,7 +4,7 @@
         <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>营销管理</el-breadcrumb-item>
-            <el-breadcrumb-item>营销活动管理</el-breadcrumb-item>
+            <el-breadcrumb-item>营销活动复核</el-breadcrumb-item>
         </el-breadcrumb>
 
     <!-- 查询栏 -->
@@ -25,9 +25,14 @@
         <!-- 列表 -->
         <el-table :data="tableData" border :header-cell-style="{'background-color': '#fafafa'}" style="width: 100%;margin-top: 70px;;">
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="date" label="日期" width="180"></el-table-column>
-            <el-table-column prop="name" label="姓名" width="180"></el-table-column>
-            <el-table-column prop="address" label="地址"></el-table-column>
+            <el-table-column prop="id" label="活动编号"></el-table-column>
+            <el-table-column prop="name" label="活动名称"></el-table-column>
+            <el-table-column prop="startDate" label="开始时间"></el-table-column>
+            <el-table-column prop="endDate" label="结束时间"></el-table-column>
+            <el-table-column prop="couponType" label="卡券类型"></el-table-column>
+            <el-table-column prop="integralType" label="积分类型"></el-table-column>
+            <el-table-column prop="url" label="活动链接"></el-table-column>
+            <el-table-column prop="status" label="状态"></el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button
@@ -60,59 +65,20 @@
         </div>
     </el-dialog>
 
-        <el-pagination background layout="prev, pager, next" :total="1000"></el-pagination>
+        <el-pagination background style="margin-top:10px;" :page-size="10" layout="prev, pager, next" :total="10"></el-pagination>
     </section>
 </template>
 
 <script>
 export default {
   name: 'test',
+  created () {
+    console.log('营销活动复核init')
+  },
   data () {
     return {
       msg: 'test',
-      tableData: [{
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      },
-      {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1519 弄'
-      }, {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1516 弄'
-      },
-      {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1517 弄'
-      }],
+      tableData: [],
       editFormVisible: false, // 是否显示编辑界面
       editLoading: false,
       editFormRules: {

@@ -2,13 +2,18 @@
   <el-container style="height:100%">
     <el-header>积分管理与营销系统</el-header>
     <el-container>
-      <el-aside width="200px">
+      <!-- <el-aside width="200px"> -->
         <el-menu
-          default-active="1"
+          default-active="0"
           class="el-menu-vertical-demo"
           @open="handleOpen"
           @close="handleClose"
-          style="height:100%">
+          :collapse="isCollapse"
+          style="height:100%;">
+          <el-menu-item index="0" @click="adjustMenu">
+            <i class="el-icon-mine-home_fill_light"></i>
+            <span slot="title">主页</span>
+          </el-menu-item>
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -16,13 +21,13 @@
             </template>
             <el-menu-item-group>
               <!-- <template slot="title">分组一</template> -->
-              <el-menu-item index="1-1" @click="$router.push('/test')">营销活动管理</el-menu-item>
-              <el-menu-item index="1-2" @click="$router.push('/test2')">营销活动复核</el-menu-item>
-              <el-menu-item index="1-3">中奖纪录查询</el-menu-item>
-              <el-menu-item index="1-4">签到参数管理</el-menu-item>
-              <el-menu-item index="1-5">奖品管理</el-menu-item>
-              <el-menu-item index="1-6">抽奖纪录查询</el-menu-item>
-              <el-menu-item index="1-7">营销活动监控</el-menu-item>
+              <el-menu-item index="1-1" @click="$router.push('/MCM')">营销活动管理</el-menu-item>
+              <el-menu-item index="1-2" @click="$router.push('/MCA')">营销活动复核</el-menu-item>
+              <el-menu-item index="1-3" @click="$router.push('/WPR')">中奖纪录查询</el-menu-item>
+              <el-menu-item index="1-4" @click="$router.push('/SIP')">签到参数管理</el-menu-item>
+              <el-menu-item index="1-5" @click="$router.push('/PM')">奖品管理</el-menu-item>
+              <el-menu-item index="1-6" @click="$router.push('/LR')">抽奖纪录查询</el-menu-item>
+              <el-menu-item index="1-7" @click="$router.push('/MCO')">营销活动监控</el-menu-item>
             </el-menu-item-group>
           </el-submenu>
           <el-submenu index="2">
@@ -114,7 +119,7 @@
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
-      </el-aside>
+      <!-- </el-aside> -->
       <!-- 主内容区域 -->
       <el-main>
         <el-col :span="24" class="content-wrapper">
@@ -143,7 +148,8 @@ export default {
         name: '2',
         content: 'Tab 2 content'
       }],
-      tabIndex: 2
+      tabIndex: 2,
+      isCollapse: false
     }
   },
   methods: {
@@ -152,33 +158,10 @@ export default {
     },
     handleClose (key, keyPath) {
       // console.log(key, keyPath)
+    },
+    adjustMenu () {
+      this.isCollapse = !this.isCollapse
     }
-    // addTab (targetName) {
-    //   let newTabName = ++this.tabIndex + ''
-    //   this.editableTabs2.push({
-    //     title: 'New Tab',
-    //     name: newTabName,
-    //     content: 'New Tab content'
-    //   })
-    //   this.editableTabsValue2 = newTabName
-    // },
-    // removeTab (targetName) {
-    //   let tabs = this.editableTabs2
-    //   let activeName = this.editableTabsValue2
-    //   if (activeName === targetName) {
-    //     tabs.forEach((tab, index) => {
-    //       if (tab.name === targetName) {
-    //         let nextTab = tabs[index + 1] || tabs[index - 1]
-    //         if (nextTab) {
-    //           activeName = nextTab.name
-    //         }
-    //       }
-    //     })
-    //   }
-
-    //   this.editableTabsValue2 = activeName
-    //   this.editableTabs2 = tabs.filter(tab => tab.name !== targetName)
-    // }
   }
 }
 </script>
@@ -210,5 +193,10 @@ export default {
 
 body > .el-container {
   margin-bottom: 40px;
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 595px;
 }
 </style>

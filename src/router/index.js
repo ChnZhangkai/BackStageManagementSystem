@@ -4,11 +4,16 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 // 登录
 import Login from '@/page/Login/login.vue'
-// 营销活动管理
+// 主页
 import Home from '@/page/Home/Home'
-// 营销活动审核
-import Test from '@/page/MarketingManage/test'
-import Test2 from '@/page/MarketingManage/test2'
+// 营销管理
+import MCManage from '@/page/MarketingManage/MCManage'
+import MCAudit from '@/page/MarketingManage/MCAudit'
+import MCMonitoring from '@/page/MarketingManage/MCMonitoring'
+import PrizeManage from '@/page/MarketingManage/PrizeManage'
+import SIParameter from '@/page/MarketingManage/SIParameter'
+import WPRecord from '@/page/MarketingManage/WPRecord'
+import LotteryRecord from '@/page/MarketingManage/LotteryRecord'
 
 Vue.use(Router)
 
@@ -29,8 +34,13 @@ export default new Router({
       name: 'Home',
       component: Home,
       children: [
-        {path: '/test', component: Test, name: 'test', hidden: true},
-        {path: '/test2', component: Test2, name: 'test2', hidden: true}
+        {path: '/MCM', component: MCManage, name: 'MCManage', hidden: true},
+        {path: '/MCA', component: MCAudit, name: 'MCAudit', hidden: true},
+        {path: '/MCO', component: MCMonitoring, name: 'MCMonitoring', hidden: true},
+        {path: '/PM', component: PrizeManage, name: 'PrizeManage', hidden: true},
+        {path: '/SIP', component: SIParameter, name: 'SIParameter', hidden: true},
+        {path: '/WPR', component: WPRecord, name: 'WPRecord', hidden: true},
+        {path: '/LR', component: LotteryRecord, name: 'LotteryRecord', hidden: true}
       ]
     }
   ]
