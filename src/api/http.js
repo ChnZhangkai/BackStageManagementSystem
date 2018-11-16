@@ -1,7 +1,8 @@
 /* jshint esversion: 6 */
 import axios from 'axios'
-import qs from 'qs'
-let baseURL = 'http://yiya.net.cn:8086/weatherapp/backstage'
+// import qs from 'qs'
+// let baseURL = 'http://yiya.net.cn:8086/weatherapp/backstage'
+let baseURL = 'http://127.0.0.1:8086/weatherapp/backstage'
 
 // 发送请求之前
 axios.interceptors.request.use(config => {
@@ -50,15 +51,17 @@ export default {
       method: 'post',
       baseURL: baseURL,
       url,
-      data: qs.stringify(data),
+      // data: qs.stringify(data),
+      data: JSON.stringify(data),
       timeout: 10000,
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8'
       }
     }).then(
       (response) => {
-        console.log(response.data)
+        // console.log(response.data)
         return checkStatus(response)
       }
     ).catch(
