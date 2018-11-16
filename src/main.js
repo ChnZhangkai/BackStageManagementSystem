@@ -10,6 +10,8 @@ import router from './router'
 import axios from 'axios'
 import api from './api/api'
 import http from './api/http'
+// echarts图表
+import echarts from 'echarts'
 
 // 初始化样式，清除浏览器默认样式
 import './assets/css/reset.css'
@@ -21,6 +23,7 @@ Vue.use(ElementUI, { size: 'small', zIndex: 3000 })
 Vue.prototype.$ajax = axios
 Vue.prototype.api = api
 Vue.prototype.http = http
+Vue.prototype.$echarts = echarts
 
 /* eslint-disable no-new */
 new Vue({

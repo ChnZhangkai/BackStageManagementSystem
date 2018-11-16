@@ -2,28 +2,31 @@
     <section>
         <!-- 位置 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>首页</el-breadcrumb-item>
             <el-breadcrumb-item>营销管理</el-breadcrumb-item>
             <el-breadcrumb-item>营销活动管理</el-breadcrumb-item>
         </el-breadcrumb>
 
     <!-- 查询栏 -->
     <el-col :span="24" style="padding-bottom: 0px;background-color: #fafafa;height: 50px;margin-top: 10px;">
-        <el-form :inline="true">
+        <el-form :v-model="queryForm" :inline="true">
             <el-form-item style="float:left;margin: 8px 0 0 8px;">
-                <el-input  placeholder="姓名"></el-input>
+                <el-input v-model="queryForm.name"  placeholder="请输入名称"></el-input>
+            </el-form-item>
+            <el-form-item style="float:left;margin: 8px 0 0 8px;">
+                <el-date-picker type="dates" v-model="queryForm.date" placeholder="请选择日期"></el-date-picker>
             </el-form-item>
             <el-form-item style="float:left;margin: 8px 0 0 8px;">
                 <el-button type="primary" @click="doQuery">查询</el-button>
             </el-form-item>
-            <el-form-item style="float:left;margin: 8px 0 0 8px;">
+            <el-form-item style="float:right;margin: 8px 48px 0 0;">
                 <el-button type="primary" @click="doAdd">新增</el-button>
             </el-form-item>
         </el-form>
     </el-col>
 
         <!-- 列表 -->
-        <el-table :data="tableData" border :header-cell-style="{'background-color': '#fafafa'}" style="width: 100%;margin-top: 70px;;">
+        <el-table :data="tableData" border :header-cell-style="{'background-color': '#fafafa'}" :row-style="rowStyle" class="tableClass" style="width: 100%;margin-top: 70px;;">
             <el-table-column type="selection" width="30"></el-table-column>
             <el-table-column prop="id" label="活动编号" width="80"></el-table-column>
             <el-table-column prop="name" label="活动名称"></el-table-column>
@@ -65,7 +68,7 @@
         </div>
     </el-dialog>
 
-        <el-pagination background style="margin-top:10px;" :page-size="10" layout="prev, pager, next" :total="10"></el-pagination>
+        <el-pagination background style="margin-top:10px;" :page-size="10" layout="prev, pager, next" :total="18"></el-pagination>
     </section>
 </template>
 
@@ -87,14 +90,20 @@ export default {
     return {
       msg: 'test',
       tableData: [],
-      editFormVisible: false, // 是否显示编辑界面
+      // 是否显示编辑界面
+      editFormVisible: false,
       editLoading: false,
       editFormRules: {
         name: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ]
       },
-      // 编辑界面数据
+      // 查询界面表单
+      queryForm: {
+        name: '',
+        data: ''
+      },
+      // 编辑界面表单
       editForm: {
         id: 0,
         name: '',
@@ -107,6 +116,11 @@ export default {
     }
   },
   methods: {
+    rowStyle (row) {
+      if (row.rowIndex === 1) {
+        return ''
+      }
+    },
     // 条件搜索
     doQuery () {
       console.log(123)
@@ -130,5 +144,10 @@ export default {
 </script>
 
 <style scoped>
-
+/* .rowStyle{
+    height: 30px;
+} */
+/* .tableClass tr{
+    height: 40px;
+} */
 </style>

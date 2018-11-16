@@ -10,9 +10,9 @@
           @close="handleClose"
           :collapse="isCollapse"
           style="height:100%;">
-          <el-menu-item index="0" @click="adjustMenu">
-            <i class="el-icon-mine-home_fill_light"></i>
-            <span slot="title">主页</span>
+          <el-menu-item index="0">
+            <i class="el-icon-mine-home_fill_light" @click="adjustMenu"></i>
+            <span slot="title" @click="next('Home')">主页</span>
           </el-menu-item>
           <el-submenu index="1">
             <template slot="title">
@@ -21,7 +21,7 @@
             </template>
             <el-menu-item-group>
               <!-- <template slot="title">分组一</template> -->
-              <el-menu-item index="1-1" @click="$router.push('/MCM')">营销活动管理</el-menu-item>
+              <el-menu-item index="1-1" @click="next('MCM')">营销活动管理</el-menu-item>
               <el-menu-item index="1-2" @click="$router.push('/MCA')">营销活动复核</el-menu-item>
               <el-menu-item index="1-3" @click="$router.push('/WPR')">中奖纪录查询</el-menu-item>
               <el-menu-item index="1-4" @click="$router.push('/SIP')">签到参数管理</el-menu-item>
@@ -122,6 +122,10 @@
       <!-- </el-aside> -->
       <!-- 主内容区域 -->
       <el-main>
+        <div v-show="isHome">
+          <div id="mainCharts" :style="{width: '400px', height: '300px', float: 'left'}"></div>
+          <div id="assistantCharts" :style="{width: '700px', height: '300px', float: 'left'}"></div>
+        </div>
         <el-col :span="24" class="content-wrapper">
           <transition name="fade" mode="out-in">
             <router-view></router-view>
@@ -135,9 +139,13 @@
 <script>
 export default {
   name: 'home',
+  created () {
+    console.log('初始化主页')
+    // this.initHome()
+  },
   data () {
     return {
-      msg: 'This is home.vue',
+      isHome: true,
       editableTabsValue2: '2',
       editableTabs2: [{
         title: 'Tab 1',
@@ -161,7 +169,102 @@ export default {
     },
     adjustMenu () {
       this.isCollapse = !this.isCollapse
+    },
+    next (routerPath) {
+      if (routerPath === 'Home') {
+        console.log('前往主页')
+        this.isHome = true
+      } else {
+        this.isHome = false
+      }
+      this.$router.push('/' + routerPath)
+    },
+    initHome () {
+      let myCharts = this.$echarts.init(document.getElementById('mainCharts'))
+      console.log(myCharts)
+      var option = {
+        title: {
+          text: 'ECharts 入门示例'
+        },
+        tooltip: {},
+        legend: {
+          data: ['销量']
+        },
+        xAxis: {
+          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子']
+        },
+        yAxis: {},
+        series: [{
+          name: '销量',
+          type: 'bar',
+          data: [5, 20, 36, 10, 10, 20]
+        }]
+      }
+      myCharts.setOption(option)
+      let assistantCharts = this.$echarts.init(document.getElementById('assistantCharts'))
+      var option2 = {
+        title: {
+          text: '某楼盘销售情况',
+          subtext: '纯属虚构'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['意向', '预购', '成交']
+        },
+        toolbox: {
+          show: true,
+          feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+            restore: {show: true},
+            saveAsImage: {show: true}
+          }
+        },
+        calculable: true,
+        xAxis: [
+          {
+            type: 'category',
+            boundaryGap: false,
+            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value'
+          }
+        ],
+        series: [
+          {
+            name: '成交',
+            type: 'line',
+            smooth: true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data: [10, 12, 21, 54, 260, 830, 710]
+          },
+          {
+            name: '预购',
+            type: 'line',
+            smooth: true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data: [30, 182, 434, 791, 390, 30, 10]
+          },
+          {
+            name: '意向',
+            type: 'line',
+            smooth: true,
+            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+            data: [1320, 1132, 601, 234, 120, 90, 20]
+          }
+        ]
+      }
+      assistantCharts.setOption(option2)
     }
+  },
+  mounted () {
+    this.initHome()
   }
 }
 </script>

@@ -4,8 +4,10 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 // 登录
 import Login from '@/page/Login/login.vue'
-// 主页
+// 首页
 import Home from '@/page/Home/Home'
+// 主页
+// import Home from '@/page/Home/Home'
 // 营销管理
 import MCManage from '@/page/MarketingManage/MCManage'
 import MCAudit from '@/page/MarketingManage/MCAudit'
@@ -21,7 +23,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
+      name: '/HelloWorld',
       component: HelloWorld
     },
     {

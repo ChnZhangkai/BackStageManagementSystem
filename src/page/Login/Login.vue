@@ -1,8 +1,8 @@
 <template>
     <section class="loginClass">
-        <section>
+        <div style="height: 1px"></div>
+        <el-row class="firstRowClass">
         <el-form class="mainForm" :model="loginForm" :rules="ruleObject" ref="loginForm">
-            <!-- <h3 class="title">系统登录</h3> -->
             <el-form-item prop="username">
                 <el-input prefix-icon="el-icon-mine-my" v-model="loginForm.username" placeholder="请输入账号"></el-input>
             </el-form-item>
@@ -17,11 +17,14 @@
                 <a class="forgetClass">忘记密码</a>
             </el-form-item>
         </el-form>
-        </section>
+        </el-row>
     </section>
 </template>
 <script>
 export default {
+  created () {
+
+  },
   data () {
     return {
       loginForm: {
@@ -86,24 +89,28 @@ export default {
   mounted () { // 刷新页面时执行
     console.log('刷新啦')
     this.getLoginStatus()
-  },
-  created () {
-
   }
 }
 </script>
 <style scoped>
 .loginClass{
     height: 100%;
-    background: url("../../assets/image/bg.jpg");
+    background: url("../../assets/image/login-background.jpg") no-repeat center fixed;
     background-size: cover;
+}
+.firstRowClass{
+  height: 250px;
+  width: 250px;
+  margin: 15% 10% 0 60%;
+  background: rgba(255, 255, 255, 0.2)
 }
 .mainForm{
     text-align: center;
-    margin-left: 40%;
-    padding-top: 18%;
-    width: 250px;
+    /* margin-left: 40%; */
+    /* padding-top: 18%; */
+    width: 200px;
     height: 300px;
+    padding: 40px 25px;
 }
 .bottomClass{
     width: 100%;
@@ -113,5 +120,9 @@ export default {
 }
 .forgetClass{
     float: right;
+}
+.body{
+  background: url("../../assets/image/login-background.jpg") no-repeat center fixed;
+  background-size: cover;
 }
 </style>
