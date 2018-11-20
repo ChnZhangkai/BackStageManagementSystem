@@ -1,6 +1,7 @@
 <template>
     <section class="loginClass">
         <div style="height: 1px"></div>
+        <!-- <el-row class="titleClass">厦门国际银行-积分与营销管理系统</el-row> -->
         <el-row class="firstRowClass">
         <el-form class="mainForm" :model="loginForm" :rules="ruleObject" ref="loginForm">
             <el-form-item prop="username">
@@ -43,12 +44,13 @@ export default {
     }
   },
   methods: {
+    // 登录
     login () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           let params = {
-            username: this.loginForm.username,
-            password: this.loginForm.password
+            userId: this.loginForm.username,
+            userPwd: this.loginForm.password
           }
           this.http.get(this.api.login, params).then((resp) => {
             console.log(resp)
@@ -76,9 +78,11 @@ export default {
         }
       })
     },
+    // 保存登录用户
     rememberLogin (userName) {
       localStorage.setItem('loginName', userName)
     },
+    // 获取登录用户名
     getLoginStatus () {
       if (localStorage.getItem('loginName')) {
         this.loginForm.username = localStorage.getItem('loginName')
@@ -93,6 +97,12 @@ export default {
 }
 </script>
 <style scoped>
+.titleClass{
+  font-size: 30px;
+  float: left;
+  color: white;
+  margin: 15% 0 0 15%
+}
 .loginClass{
     height: 100%;
     background: url("../../assets/image/login-background.jpg") no-repeat center fixed;
