@@ -335,8 +335,6 @@ export default {
           // this.addLoading = true
           console.log('新增提交')
           console.log(this.addForm)
-          this.addForm.startTime = formatTime(this.addForm.startDate, 'yyyyMMdd')
-          this.addForm.endTime = formatTime(this.addForm.endDate, 'yyyyMMdd')
           this.http.post(this.api.addMarketing, this.addForm).then((resp) => {
             if (resp.resultCode === '000000') {
               // 重置表单
