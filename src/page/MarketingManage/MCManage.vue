@@ -188,7 +188,7 @@
 
 <script>
 // import axios from 'axios'
-import { formatTime } from '../../utils/myUtils'
+// import { formatTime } from '../../utils/myUtils'
 export default {
   name: 'test',
   created () {
@@ -325,42 +325,40 @@ export default {
     handleEdit (index, row) {
       this.editFormVisible = true
       this.editForm = Object.assign({}, row)
-      // this.editForm.startTime = this.stringToDate(row.startTime)
-      // this.editForm.endTime = this.stringToDate(row.endTime)
       console.log(index + '|' + JSON.stringify(row))
     },
     // 新增提交
     addSubmit () {
       console.log(this.addForm)
-      // this.$refs.addForm.validate((valid) => {
-      //   if (valid) {
-      //     // this.addLoading = true
-      //     console.log('新增提交')
-      //     console.log(this.addForm)
-      //     this.addForm.startTime = formatTime(this.addForm.startDate, 'yyyyMMdd')
-      //     this.addForm.endTime = formatTime(this.addForm.endDate, 'yyyyMMdd')
-      //     this.http.post(this.api.addMarketing, this.addForm).then((resp) => {
-      //       if (resp.resultCode === '000000') {
-      //         // 重置表单
-      //         this.$refs.addForm.resetFields()
-      //         this.doQuery()
-      //         this.$message({
-      //           type: 'success',
-      //           message: '新增成功'
-      //         })
-      //       }
-      //       // this.addLoading = false
-      //       this.addFormVisible = false
-      //     }, () => {
-      //       this.$message({
-      //         type: 'error',
-      //         message: '新增失败'
-      //       })
-      //       this.addFormVisible = false
-      //       // this.addLoading = false
-      //     })
-      //   }
-      // })
+      this.$refs.addForm.validate((valid) => {
+        if (valid) {
+          // this.addLoading = true
+          console.log('新增提交')
+          console.log(this.addForm)
+          this.addForm.startTime = formatTime(this.addForm.startDate, 'yyyyMMdd')
+          this.addForm.endTime = formatTime(this.addForm.endDate, 'yyyyMMdd')
+          this.http.post(this.api.addMarketing, this.addForm).then((resp) => {
+            if (resp.resultCode === '000000') {
+              // 重置表单
+              this.$refs.addForm.resetFields()
+              this.doQuery()
+              this.$message({
+                type: 'success',
+                message: '新增成功'
+              })
+            }
+            // this.addLoading = false
+            this.addFormVisible = false
+          }, () => {
+            this.$message({
+              type: 'error',
+              message: '新增失败'
+            })
+            this.addFormVisible = false
+            // this.addLoading = false
+          })
+        }
+      })
     },
     editSubmit () {
       console.log(JSON.stringify(this.editForm))
