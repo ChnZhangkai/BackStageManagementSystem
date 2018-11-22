@@ -54,14 +54,14 @@ export default {
           }
           this.http.get(this.api.login, params).then((resp) => {
             console.log(resp)
-            // if (resp.resultCode && resp.resultCode === '000000' && resp.data != null) {
-            //   this.$router.push({ path: '/home' })
-            // } else {
-            //   this.$message({
-            //     message: '您输入的账号或密码有误',
-            //     center: true
-            //   })
-            // }
+            if (resp.resultCode && resp.resultCode === '000000' && resp.data != null) {
+              this.$router.push({ path: '/home' })
+            } else {
+              this.$message({
+                message: '您输入的账号或密码有误',
+                center: true
+              })
+            }
             sessionStorage.setItem('key1', 'value1')
             var svalue = sessionStorage.getItem('key1')
             console.log(svalue)

@@ -2,7 +2,7 @@
 import axios from 'axios'
 // import qs from 'qs'
 // let baseURL = 'http://yiya.net.cn:8086/weatherapp/backstage'
-let baseURL = 'http://127.0.0.1:8086/weatherapp/backstage'
+let baseURL = 'http://127.0.0.1:8086/bsmsapp/backstage'
 
 // 发送请求之前
 axios.interceptors.request.use(config => {

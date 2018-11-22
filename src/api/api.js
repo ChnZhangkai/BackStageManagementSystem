@@ -3,5 +3,6 @@ export default {
   login: '/login',
   param: '/param',
   marketing: '/marketing',
-  delMarketing: '/delmarketing'
+  delMarketing: '/delmarketing',
+  addMarketing: '/add'
 }

@@ -57,25 +57,6 @@
             </el-table-column>
         </el-table>
 
-    <!--编辑界面-->
-    <el-dialog title="编辑" :visible.sync="editFormVisible">
-        <el-form :model="editForm" :rules="editFormRules">
-            <el-form-item label="生日" :label-width="formLabelWidth">
-                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.date"></el-date-picker>
-            </el-form-item>
-            <el-form-item label="姓名" prop="name" :label-width="formLabelWidth">
-                <el-input v-model="editForm.name" auto-complete="off" style="float:left"></el-input>
-            </el-form-item>
-            <el-form-item label="地址" :label-width="formLabelWidth">
-                <el-input type="textarea" v-model="editForm.address"></el-input>
-            </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-            <el-button @click="editFormVisible = false">取消</el-button>
-            <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
-        </div>
-    </el-dialog>
-
         <el-pagination background style="margin-top:10px;"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
@@ -83,6 +64,85 @@
           layout="total, sizes, prev, pager, next, jumper"
           :total="total" >
         </el-pagination>
+
+        <!--编辑界面-->
+        <el-dialog title="编辑" :visible.sync="editFormVisible">
+            <el-form :model="editForm" :rules="editFormRules" ref="editForm">
+                <el-form-item label="生日" :label-width="formLabelWidth">
+                    <el-date-picker type="date" placeholder="选择日期" v-model="editForm.date"></el-date-picker>
+                </el-form-item>
+                <el-form-item label="姓名" prop="name" :label-width="formLabelWidth">
+                    <el-input v-model="editForm.name" auto-complete="off" style="float:left"></el-input>
+                </el-form-item>
+                <el-form-item label="地址" :label-width="formLabelWidth">
+                    <el-input type="textarea" v-model="editForm.address"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="editFormVisible = false">取消</el-button>
+                <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+            </div>
+        </el-dialog>
+
+        <!--新增界面-->
+        <el-dialog title="新增" :visible.sync="addFormVisible" width="780px" v-loading.fullscreen.lock="addLoading" center>
+            <el-form :model="addForm" :rules="addFormRules" ref="addForm">
+                <div style="display:flex">
+                  <el-form-item label="活动编号" prop="activityCode" :label-width="formLabelWidth" style="width:350px">
+                    <el-input v-model="addForm.activityCode"></el-input>
+                  </el-form-item>
+                  <el-form-item label="活动名称" prop="activityName" :label-width="formLabelWidth" style="width:350px">
+                      <el-input v-model="addForm.activityName"></el-input>
+                  </el-form-item>
+                </div>
+                <div style="display:flex">
+                  <el-form-item label="开始日期" prop="startDate" :label-width="formLabelWidth">
+                    <el-date-picker type="date" v-model="addForm.startDate" placeholder="选择日期"></el-date-picker>
+                  </el-form-item>
+                  <el-form-item label="结束日期" prop="endDate" :label-width="formLabelWidth">
+                      <el-date-picker type="date" v-model="addForm.endDate" placeholder="选择日期"></el-date-picker>
+                  </el-form-item>
+                </div>
+                <div style="display:flex">
+                  <el-form-item label="参与活动卡券类型" :label-width="formLabelWidth" style="width:350px">
+                    <el-input v-model="addForm.joinCardType"></el-input>
+                  </el-form-item>
+                  <el-form-item label="参与活动积分类型" :label-width="formLabelWidth" style="width:350px">
+                      <el-input v-model="addForm.joinJfType"></el-input>
+                  </el-form-item>
+                </div>
+                <div style="display:flex">
+                  <el-form-item label="活动目标类型" :label-width="formLabelWidth" style="width:350px">
+                    <el-input v-model="addForm.activityTargetType"></el-input>
+                  </el-form-item>
+                  <el-form-item label="活动目标数量" :label-width="formLabelWidth" style="width:350px">
+                      <el-input v-model="addForm.activityTargetNum"></el-input>
+                  </el-form-item>
+                </div>
+                <div style="display:flex">
+                  <el-form-item label="活动卡券类型" :label-width="formLabelWidth" style="width:350px">
+                    <el-input v-model="addForm.cardType"></el-input>
+                  </el-form-item>
+                  <el-form-item label="活动积分数量" :label-width="formLabelWidth" style="width:350px">
+                      <el-input v-model="addForm.jfNum"></el-input>
+                  </el-form-item>
+                </div>
+                <el-form-item label="活动说明" :label-width="formLabelWidth" style="width: 700px;">
+                    <el-input type="textarea" v-model="addForm.activityExplain"></el-input>
+                </el-form-item>
+                <el-form-item label="活动目标" :label-width="formLabelWidth" style="width: 700px;">
+                    <el-input type="textarea" v-model="addForm.activityTargetDesc"></el-input>
+                </el-form-item>
+                <el-form-item label="活动链接" prop="activityLink" :label-width="formLabelWidth" style="width: 700px;">
+                    <el-input v-model="addForm.activityLink"></el-input>
+                </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="addFormVisible = false">取消</el-button>
+                <el-button type="primary" @click.native="addSubmit">提交</el-button>
+            </div>
+        </el-dialog>
+
     </section>
 </template>
 
@@ -108,10 +168,30 @@ export default {
       tableData: [],
       // 是否显示编辑界面
       editFormVisible: false,
+      // 是否显示新增页面
+      addFormVisible: false,
+      addLoading: false,
       editLoading: false,
       editFormRules: {
         name: [
-          { required: true, message: '请输入姓名', trigger: 'blur' }
+          { required: true, message: '请输入活动名称', trigger: 'blur' }
+        ]
+      },
+      addFormRules: {
+        activityCode: [
+          { required: true, message: '请输入活动编号', trigger: 'blur' }
+        ],
+        activityName: [
+          { required: true, message: '请输入活动名称', trigger: 'blur' }
+        ],
+        startDate: [
+          { required: true, message: '请选择开始日期', trigger: 'blur' }
+        ],
+        endDate: [
+          { required: true, message: '请选择结束日期', trigger: 'blur' }
+        ],
+        activityLink: [
+          { required: true, message: '请填写活动页面链接', trigger: 'blur' }
         ]
       },
       // 查询界面表单
@@ -130,7 +210,27 @@ export default {
         birth: '',
         addr: ''
       },
-      formLabelWidth: '120px'
+      startTime: '',
+      endTime: '',
+      // 新增表单
+      addForm: {
+        activityCode: '',
+        activityName: '',
+        joinCardType: '',
+        joinJfType: '',
+        startTime: '',
+        endTime: '',
+        startDate: '',
+        endDate: '',
+        activityExplain: '',
+        activityTargetDesc: '',
+        activityLink: '',
+        activityTargetType: '',
+        activityTargetNum: '',
+        cardType: '',
+        jfNum: ''
+      },
+      formLabelWidth: '130px'
     }
   },
   methods: {
@@ -172,15 +272,47 @@ export default {
         console.log(error)
       })
     },
-    // 新增
+    // 打开新增dialog
     doAdd () {
-      console.log(456)
+      this.addFormVisible = true
     },
-    // 修改
+    // 打开修改dialog
     handleEdit (index, row) {
       this.editFormVisible = true
       this.editForm = Object.assign({}, row)
       console.log(index + '|' + row)
+    },
+    // 新增提交
+    addSubmit () {
+      this.$refs.addForm.validate((valid) => {
+        if (valid) {
+          // this.addLoading = true
+          console.log('新增提交')
+          console.log(this.addForm)
+          this.addForm.startTime = formatTime(this.addForm.startDate, 'yyyyMMdd')
+          this.addForm.endTime = formatTime(this.addForm.endDate, 'yyyyMMdd')
+          this.http.post(this.api.addMarketing, this.addForm).then((resp) => {
+            if (resp.resultCode === '000000') {
+              // 重置表单
+              this.$refs.addForm.resetFields()
+              this.doQuery()
+              this.$message({
+                type: 'success',
+                message: '新增成功'
+              })
+            }
+            // this.addLoading = false
+            this.addFormVisible = false
+          }, () => {
+            this.$message({
+              type: 'error',
+              message: '新增失败'
+            })
+            this.addFormVisible = false
+            // this.addLoading = false
+          })
+        }
+      })
     },
     // 删除
     handleDelete (index, row) {
