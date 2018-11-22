@@ -358,8 +358,35 @@ export default {
         }
       })
     },
+    // 修改提交
     editSubmit () {
       console.log(JSON.stringify(this.editForm))
+      this.$refs.editForm.validate((valid) => {
+        if (valid) {
+          // this.addLoading = true
+          console.log('修改提交')
+          this.http.post(this.api.updateMarketing, this.editForm).then((resp) => {
+            if (resp.resultCode === '000000') {
+              // 重置表单
+              this.$refs.editForm.resetFields()
+              this.doQuery()
+              this.$message({
+                type: 'success',
+                message: '修改成功'
+              })
+            }
+            // this.addLoading = false
+            this.editFormVisible = false
+          }, () => {
+            this.$message({
+              type: 'error',
+              message: '修改失败'
+            })
+            this.editFormVisible = false
+            // this.addLoading = false
+          })
+        }
+      })
     },
     // 删除
     handleDelete (index, row) {

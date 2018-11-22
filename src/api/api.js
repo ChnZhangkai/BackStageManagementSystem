@@ -4,5 +4,6 @@ export default {
   param: '/param',
   marketing: '/marketing',
   delMarketing: '/delmarketing',
-  addMarketing: '/add'
+  addMarketing: '/add',
+  updateMarketing: '/update'
 }
